@@ -1,0 +1,99 @@
+# ══════════════════════════════════════════════════════════════════════
+# Assembly (Convergent) Network — YAML Config
+# ══════════════════════════════════════════════════════════════════════
+# Multiple component suppliers feed a single assembly factory.
+# Common in electronics and automotive manufacturing.
+#
+# Topology:
+#
+#   RM_A (5) ──→ Comp_A (3) ──┐
+#                              ├──→ Assembly (2) ──→ Retailer (1) ──→ Market (0)
+#   RM_B (6) ──→ Comp_B (4) ──┘
+#
+# Key challenge: The assembly factory needs BOTH components to produce.
+# A stockout of either component halts assembly entirely.
+# This tests whether policies can balance dual supply streams.
+#
+# Usage:
+#   from gym_invmgmt import make_custom_env
+#   env = make_custom_env('gym_invmgmt/topologies/assembly.yaml')
+
+name: "Assembly (Convergent) Network"
+description: >
+  A convergent supply chain where two component suppliers feed a single
+  assembly factory. The factory requires both inputs to produce, creating
+  a bottleneck coordination challenge.
+
+nodes:
+  - id: 0                         # Market
+
+  - id: 1                         # Retailer
+    I0: 120
+    h: 0.030
+
+  - id: 2                         # Assembly factory
+    I0: 200
+    C: 70
+    o: 0.020
+    v: 1.0
+    h: 0.015
+
+  - id: 3                         # Component supplier A (fast, expensive)
+    I0: 300
+    C: 80
+    o: 0.008
+    v: 1.0
+    h: 0.010
+
+  - id: 4                         # Component supplier B (slow, cheap)
+    I0: 250
+    C: 60
+    o: 0.005
+    v: 1.0
+    h: 0.008
+
+  - id: 5                         # Raw material A
+  - id: 6                         # Raw material B
+
+edges:
+  # Retail
+  - from: 1
+    to: 0
+    p: 3.0
+    b: 0.20
+    demand_dist: poisson
+    dist_param:
+      mu: 20
+
+  # Assembly → Retailer
+  - from: 2
+    to: 1
+    L: 2
+    p: 2.0
+    g: 0.010
+
+  # Components → Assembly
+  - from: 3
+    to: 2
+    L: 3                          # Component A: short lead time
+    p: 1.0
+    g: 0.008
+
+  - from: 4
+    to: 2
+    L: 6                          # Component B: long lead time
+    p: 0.7
+    g: 0.005
+
+  # Raw materials → Components
+  - from: 5
+    to: 3
+    L: 1
+    p: 0.3
+    g: 0.002
+
+  - from: 6
+    to: 4
+    L: 2
+    p: 0.2
+    g: 0.001

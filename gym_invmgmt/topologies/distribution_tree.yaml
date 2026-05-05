@@ -1,0 +1,115 @@
+# ══════════════════════════════════════════════════════════════════════
+# Distribution Tree Network — YAML Config
+# ══════════════════════════════════════════════════════════════════════
+# A single factory distributes through a hub warehouse to multiple
+# regional retailers serving separate markets.
+# Common in consumer goods and grocery supply chains.
+#
+# Topology:
+#
+#                                ┌──→ Retailer_N (3) ──→ Market_N (0)
+#   RM (7) ──→ Factory (5) ──→ Hub (6) ──→ Retailer_E (4) ──→ Market_E (1)
+#                                └──→ Retailer_W (2) ──→ Market_W (8)
+#
+# Key challenge: The hub must allocate limited inventory across 3 competing
+# retailers (FCFS allocation). Tests whether policies learn to pre-position
+# inventory at the hub to serve demand surges at any location.
+#
+# Usage:
+#   from gym_invmgmt import make_custom_env
+#   env = make_custom_env('gym_invmgmt/topologies/distribution_tree.yaml')
+
+name: "Distribution Tree Network"
+description: >
+  A distribution tree where a single factory supplies a hub warehouse
+  that fans out to three regional retailers serving independent markets.
+  Tests divergent allocation and multi-market inventory positioning.
+
+nodes:
+  - id: 0                         # Market North
+  - id: 1                         # Market East
+  - id: 8                         # Market West
+
+  - id: 3                         # Retailer North
+    I0: 80
+    h: 0.030
+
+  - id: 4                         # Retailer East
+    I0: 60
+    h: 0.035
+
+  - id: 2                         # Retailer West
+    I0: 70
+    h: 0.032
+
+  - id: 6                         # Hub warehouse (distributor)
+    I0: 200
+    h: 0.015
+
+  - id: 5                         # Factory
+    I0: 400
+    C: 100
+    o: 0.012
+    v: 1.0
+    h: 0.010
+
+  - id: 7                         # Raw material
+
+edges:
+  # Retail links (3 independent markets)
+  - from: 3
+    to: 0
+    p: 2.5
+    b: 0.15
+    demand_dist: poisson
+    dist_param:
+      mu: 15
+
+  - from: 4
+    to: 1
+    p: 2.5
+    b: 0.12
+    demand_dist: poisson
+    dist_param:
+      mu: 20
+
+  - from: 2
+    to: 8
+    p: 2.5
+    b: 0.10
+    demand_dist: poisson
+    dist_param:
+      mu: 10
+
+  # Hub → Retailers
+  - from: 6
+    to: 3
+    L: 2
+    p: 1.5
+    g: 0.008
+
+  - from: 6
+    to: 4
+    L: 3
+    p: 1.5
+    g: 0.010
+
+  - from: 6
+    to: 2
+    L: 4
+    p: 1.5
+    g: 0.012
+
+  # Factory → Hub
+  - from: 5
+    to: 6
+    L: 5
+    p: 0.8
+    g: 0.006
+
+  # Raw material → Factory
+  - from: 7
+    to: 5
+    L: 1
+    p: 0.2
+    g: 0.001

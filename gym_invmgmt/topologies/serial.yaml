@@ -1,0 +1,64 @@
+# ══════════════════════════════════════════════════════════════════════
+# Serial Supply Chain — YAML Config
+# ══════════════════════════════════════════════════════════════════════
+# Equivalent to the built-in 'serial' scenario.
+#
+# Topology:  Raw Material (4) → Factory (3) → Distributor (2) → Retailer (1) → Market (0)
+#
+# Usage:
+#   from gym_invmgmt import make_custom_env
+#   env = make_custom_env('examples/configs/serial_network.yaml')
+
+name: "Serial Supply Chain"
+description: >
+  A simple 4-echelon serial supply chain.
+  Raw materials flow through a factory, distributor, and retailer to reach the market.
+
+nodes:
+  - id: 0                         # Market (demand sink)
+
+  - id: 1                         # Retailer
+    I0: 100                       # Initial inventory
+    h: 0.030                      # Holding cost per unit per period
+
+  - id: 2                         # Distributor
+    I0: 100
+    h: 0.020
+
+  - id: 3                         # Factory (has capacity C)
+    I0: 200
+    C: 100                        # Production capacity per period
+    o: 0.010                      # Operating cost coefficient
+    v: 1.000                      # Conversion factor (raw → finished)
+    h: 0.010
+
+  - id: 4                         # Raw Material (supply source)
+
+edges:
+  # Retail link: Retailer → Market (demand edge)
+  - from: 1
+    to: 0
+    p: 2.0                        # Selling price
+    b: 0.1                        # Backlog penalty per unit
+    demand_dist: poisson          # Demand distribution
+    dist_param:
+      mu: 20                      # Mean demand
+
+  # Reorder links: upstream → downstream (supply edges)
+  - from: 2
+    to: 1
+    L: 4                          # Lead time (periods)
+    p: 1.5                        # Transfer price
+    g: 0.010                      # Pipeline holding cost
+
+  - from: 3
+    to: 2
+    L: 4
+    p: 1.0
+    g: 0.005
+
+  - from: 4
+    to: 3
+    L: 0                          # Instant delivery from raw material
+    p: 0.5
+    g: 0.000

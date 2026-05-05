@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite this software release."
+title: "gym-invmgmt: An Open Benchmarking Framework for Inventory Management Methods"
+type: software
+authors:
+  - family-names: "Barati"
+    given-names: "Reza"
+    email: "r2barati@torontomu.ca"
+repository-code: "https://github.com/r2barati/gym-invmgmt"
+license: MIT
+version: "0.2.0"
+date-released: "2026-05-05"
+keywords:
+  - reinforcement learning
+  - operations research
+  - inventory management
+  - gymnasium
+  - supply chain
+  - multi-echelon
+  - digital twin

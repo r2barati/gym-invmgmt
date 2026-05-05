@@ -1,0 +1,116 @@
+# ══════════════════════════════════════════════════════════════════════
+# W-Network — YAML Config
+# ══════════════════════════════════════════════════════════════════════
+# Two independent supply chains sharing a common bottleneck distributor.
+# Common in contract manufacturing and 3PL logistics.
+#
+# Topology:
+#
+#   RM (6) ──→ Factory_A (4) ──┐
+#                               ├──→ Shared_DC (3) ──→ Retailer (1) ──→ Market (0)
+#   RM (7) ──→ Factory_B (5) ──┘              │
+#                                              └──→ Retailer_B (2) ──→ Market_B (8)
+#
+# Key challenge: The shared distribution center must split inventory between
+# two retailers with different demand profiles. Factory A and B have different
+# cost/capacity tradeoffs, creating sourcing decisions on top of allocation.
+#
+# Usage:
+#   from gym_invmgmt import make_custom_env
+#   env = make_custom_env('gym_invmgmt/topologies/w_network.yaml')
+
+name: "W-Network (Shared DC)"
+description: >
+  A W-shaped network where two factories supply a shared distribution
+  center that serves two retailers. Tests resource sharing, sourcing
+  decisions, and allocation priority at the shared node.
+
+nodes:
+  - id: 0                         # Market A
+  - id: 8                         # Market B
+
+  - id: 1                         # Retailer A (high demand)
+    I0: 100
+    h: 0.030
+
+  - id: 2                         # Retailer B (low demand)
+    I0: 80
+    h: 0.025
+
+  - id: 3                         # Shared distribution center
+    I0: 250
+    h: 0.015
+
+  - id: 4                         # Factory A (high capacity, expensive)
+    I0: 300
+    C: 80
+    o: 0.020
+    v: 1.0
+    h: 0.012
+
+  - id: 5                         # Factory B (low capacity, cheap)
+    I0: 200
+    C: 50
+    o: 0.010
+    v: 1.0
+    h: 0.008
+
+  - id: 6                         # Raw material A
+  - id: 7                         # Raw material B
+
+edges:
+  # Retail links (2 markets with different demand)
+  - from: 1
+    to: 0
+    p: 2.5
+    b: 0.15
+    demand_dist: poisson
+    dist_param:
+      mu: 25
+
+  - from: 2
+    to: 8
+    p: 2.0
+    b: 0.10
+    demand_dist: poisson
+    dist_param:
+      mu: 12
+
+  # Shared DC → Retailers
+  - from: 3
+    to: 1
+    L: 3
+    p: 1.5
+    g: 0.010
+
+  - from: 3
+    to: 2
+    L: 4
+    p: 1.3
+    g: 0.008
+
+  # Factories → Shared DC
+  - from: 4
+    to: 3
+    L: 5
+    p: 0.9
+    g: 0.006
+
+  - from: 5
+    to: 3
+    L: 7
+    p: 0.6
+    g: 0.004
+
+  # Raw materials → Factories
+  - from: 6
+    to: 4
+    L: 1
+    p: 0.3
+    g: 0.002
+
+  - from: 7
+    to: 5
+    L: 0
+    p: 0.2
+    g: 0.000

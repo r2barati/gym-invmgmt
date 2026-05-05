@@ -1,0 +1,84 @@
+# ══════════════════════════════════════════════════════════════════════
+# Diamond Supply Chain — YAML Config
+# ══════════════════════════════════════════════════════════════════════
+# A new topology not available as a built-in preset. Demonstrates
+# the power of custom configs by defining an unusual structure.
+#
+# Topology:
+#
+#              ┌──── Factory A (2) ────┐
+#   RM (4) ───┤                       ├──→ Retailer (1) → Market (0)
+#              └──── Factory B (3) ────┘
+#
+# Two factories compete to supply a single retailer through parallel paths.
+# This is a "diamond" because the graph diverges and then converges.
+#
+# Usage:
+#   from gym_invmgmt import make_custom_env
+#   env = make_custom_env('examples/configs/diamond_network.yaml')
+#   obs, _ = env.reset(seed=42)
+
+name: "Diamond Supply Chain"
+description: >
+  A diamond-shaped network where a single raw material source feeds two
+  competing factories, both supplying a single retailer that serves one market.
+  Tests convergent supply paths with parallel production options.
+
+nodes:
+  - id: 0                         # Market
+
+  - id: 1                         # Retailer
+    I0: 150
+    h: 0.025
+
+  - id: 2                         # Factory A (fast, expensive)
+    I0: 300
+    C: 80
+    o: 0.012
+    v: 1.0
+    h: 0.010
+
+  - id: 3                         # Factory B (slow, cheap)
+    I0: 250
+    C: 60
+    o: 0.008
+    v: 1.0
+    h: 0.008
+
+  - id: 4                         # Raw Material
+
+edges:
+  # Retail link
+  - from: 1
+    to: 0
+    p: 2.5
+    b: 0.15
+    demand_dist: poisson
+    dist_param:
+      mu: 25
+
+  # Factory → Retailer
+  - from: 2
+    to: 1
+    L: 3                          # Fast factory, short lead time
+    p: 1.2
+    g: 0.012
+
+  - from: 3
+    to: 1
+    L: 7                          # Slow factory, long lead time
+    p: 0.8
+    g: 0.006
+
+  # Raw Material → Factories
+  - from: 4
+    to: 2
+    L: 1
+    p: 0.3
+    g: 0.002
+
+  - from: 4
+    to: 3
+    L: 2
+    p: 0.2
+    g: 0.001

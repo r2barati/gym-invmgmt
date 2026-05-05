@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gym-invmgmt"
+version = "0.2.0"
+authors = [
+  { name = "Reza Barati", email = "r2barati@torontomu.ca" }
+]
+description = "Multi-echelon inventory management Gymnasium environment with configurable topology, composable demand engines, and endogenous goodwill dynamics."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+keywords = [
+    "reinforcement learning",
+    "operations research",
+    "inventory management",
+    "gymnasium",
+    "supply chain",
+    "multi-echelon",
+    "digital twin"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+    "gymnasium>=0.26.0",
+    "numpy",
+    "scipy",
+    "networkx",
+    "matplotlib",
+    "PyYAML"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.4.0",
+    "black==24.8.0",
+    "mypy>=1.0",
+    "pre-commit>=3.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/r2barati/gym-invmgmt"
+"Bug Tracker" = "https://github.com/r2barati/gym-invmgmt/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gym_invmgmt*"]
+
+[tool.setuptools.package-data]
+gym_invmgmt = ["py.typed", "topologies/*.yaml", "topologies/*.yml"]
+
+# ── Ruff (fast linter + import sorter) ──────────────────────────────
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]  # line length handled by formatter
+
+# ── Black (formatter) ───────────────────────────────────────────────
+[tool.black]
+target-version = ["py38"]
+line-length = 120
+
+# ── Mypy (type checking) ───────────────────────────────────────────
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

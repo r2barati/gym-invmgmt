@@ -1,0 +1,134 @@
+# ══════════════════════════════════════════════════════════════════════
+# Divergent Multi-Echelon Network — YAML Config
+# ══════════════════════════════════════════════════════════════════════
+# Equivalent to the built-in 'network' (base) scenario.
+#
+# Topology:
+#   Raw Materials (7, 8) → Factories (4, 5, 6) → Distributors (2, 3) → Retailer (1) → Market (0)
+#
+# Usage:
+#   from gym_invmgmt import make_custom_env
+#   env = make_custom_env('examples/configs/divergent_network.yaml')
+
+name: "Divergent Multi-Echelon Network"
+description: >
+  The default multi-echelon divergent supply chain with 3 factories,
+  2 distributors, 1 retailer, and 2 raw material sources.
+
+nodes:
+  - id: 0                         # Market
+
+  - id: 1                         # Retailer
+    I0: 100
+    h: 0.030
+
+  - id: 2                         # Distributor
+    I0: 110
+    h: 0.020
+
+  - id: 3                         # Distributor
+    I0: 80
+    h: 0.015
+
+  - id: 4                         # Factory
+    I0: 400
+    C: 90
+    o: 0.010
+    v: 1.000
+    h: 0.012
+
+  - id: 5                         # Factory
+    I0: 350
+    C: 90
+    o: 0.015
+    v: 1.000
+    h: 0.013
+
+  - id: 6                         # Factory
+    I0: 380
+    C: 80
+    o: 0.012
+    v: 1.000
+    h: 0.011
+
+  - id: 7                         # Raw Material
+  - id: 8                         # Raw Material
+
+edges:
+  # Retail link
+  - from: 1
+    to: 0
+    p: 2.000
+    b: 0.100
+    demand_dist: poisson
+    dist_param:
+      mu: 20
+
+  # Distributor → Retailer
+  - from: 2
+    to: 1
+    L: 5
+    p: 1.500
+    g: 0.010
+
+  - from: 3
+    to: 1
+    L: 3
+    p: 1.600
+    g: 0.015
+
+  # Factory → Distributor
+  - from: 4
+    to: 2
+    L: 8
+    p: 1.000
+    g: 0.008
+
+  - from: 4
+    to: 3
+    L: 10
+    p: 0.800
+    g: 0.006
+
+  - from: 5
+    to: 2
+    L: 9
+    p: 0.700
+    g: 0.005
+
+  - from: 6
+    to: 2
+    L: 11
+    p: 0.750
+    g: 0.007
+
+  - from: 6
+    to: 3
+    L: 12
+    p: 0.800
+    g: 0.004
+
+  # Raw Material → Factory
+  - from: 7
+    to: 4
+    L: 0
+    p: 0.150
+    g: 0.000
+
+  - from: 7
+    to: 5
+    L: 1
+    p: 0.050
+    g: 0.005
+
+  - from: 8
+    to: 5
+    L: 2
+    p: 0.070
+    g: 0.002
+
+  - from: 8
+    to: 6
+    L: 0
+    p: 0.200
+    g: 0.000
