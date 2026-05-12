@@ -184,3 +184,50 @@ def plot_network(
         plt.show()
 
     return fig
+
+
+def render_rgb_array(env, *, width: int = 640, height: int = 480) -> np.ndarray:
+    """Render a compact dashboard frame for ``render_mode='rgb_array'``."""
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
+    from matplotlib.figure import Figure
+
+    base = env.unwrapped
+    t = max(0, base.period - 1)
+    main_nodes = list(base.network.main_nodes)
+    main_indices = [base.network.node_map[n] for n in main_nodes]
+    inv = base.X[t, main_indices] if t < len(base.X) else np.zeros(len(main_indices))
+    demand = base.D[t, :] if t < len(base.D) else np.zeros(len(base.network.retail_links))
+    backlog = base.U[t, :] if t < len(base.U) else np.zeros(len(base.network.retail_links))
+    profit = float(np.sum(base.P[t, :])) if t < len(base.P) else 0.0
+
+    fig = Figure(figsize=(width / 100, height / 100), dpi=100, facecolor="white")
+    canvas = FigureCanvasAgg(fig)
+    ax = fig.add_subplot(111)
+    ax.set_title(f"Inventory State - Period {t + 1}/{base.num_periods}", fontsize=12, fontweight="bold")
+
+    x = np.arange(len(main_nodes))
+    ax.bar(x, inv, color="#3498db", label="Inventory")
+    ax.set_xticks(x)
+    ax.set_xticklabels([str(n) for n in main_nodes], rotation=45, ha="right", fontsize=8)
+    ax.set_ylabel("Units")
+    ax.grid(True, axis="y", alpha=0.2)
+
+    info = (
+        f"Demand: {np.round(demand, 1).tolist()}\n"
+        f"Backlog: {np.round(backlog, 1).tolist()}\n"
+        f"Profit: {profit:.2f}\n"
+        f"Sentiment: {base.demand_engine.sentiment:.3f}"
+    )
+    ax.text(
+        0.98,
+        0.95,
+        info,
+        transform=ax.transAxes,
+        ha="right",
+        va="top",
+        fontsize=9,
+        bbox=dict(facecolor="white", edgecolor="#bdc3c7", boxstyle="round,pad=0.35", alpha=0.9),
+    )
+    fig.tight_layout()
+    canvas.draw()
+    return np.asarray(canvas.buffer_rgba())[:, :, :3].copy()
