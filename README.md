@@ -34,6 +34,12 @@ The environment simulates a configurable supply chain network with realistic log
 ## Installation
 
 ```bash
+pip install gym-invmgmt
+```
+
+Until the first PyPI release is published, install directly from GitHub:
+
+```bash
 pip install git+https://github.com/r2barati/gym-invmgmt.git
 ```
 
@@ -43,6 +49,9 @@ git clone https://github.com/r2barati/gym-invmgmt.git
 cd gym-invmgmt
 pip install -e .
 ```
+
+Release instructions for maintainers are in
+[`docs/releasing_to_pypi.md`](docs/releasing_to_pypi.md).
 
 ---
 

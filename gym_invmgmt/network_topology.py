@@ -93,7 +93,7 @@ class SupplyChainNetwork:
             )
 
         try:
-            with open(config_path, "r") as f:
+            with config_path.open("r", encoding="utf-8") as f:
                 cfg = yaml.safe_load(f)
         except yaml.YAMLError as e:
             raise ValueError(f"Failed to parse YAML config file '{config_path}': {e}") from e

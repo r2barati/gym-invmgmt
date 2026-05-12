@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -30,9 +30,12 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: Software Development :: Libraries :: Python Modules"
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed"
 ]
 dependencies = [
     "gymnasium>=0.26.0",
@@ -51,10 +54,17 @@ dev = [
     "mypy>=1.0",
     "pre-commit>=3.0",
 ]
+release = [
+    "build>=1.2.1",
+    "twine>=5.1.1",
+]
 
 [project.urls]
 "Homepage" = "https://github.com/r2barati/gym-invmgmt"
+"Documentation" = "https://github.com/r2barati/gym-invmgmt/tree/main/docs"
+"Source" = "https://github.com/r2barati/gym-invmgmt"
 "Bug Tracker" = "https://github.com/r2barati/gym-invmgmt/issues"
+"Changelog" = "https://github.com/r2barati/gym-invmgmt/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]
