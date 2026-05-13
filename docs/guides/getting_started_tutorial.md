@@ -2,7 +2,7 @@
 
 A step-by-step guide to the inventory management problem, from first principles to running experiments with `gym-invmgmt`.
 
-> **Prerequisites**: `pip install gym-invmgmt matplotlib numpy`
+> **Prerequisites**: `pip install -U gym-invmgmt matplotlib numpy`
 
 ---
 

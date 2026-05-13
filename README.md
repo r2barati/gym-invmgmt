@@ -1,6 +1,7 @@
 # gym-invmgmt: An Open Benchmarking Framework for Inventory Management Methods
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![PyPI](https://img.shields.io/pypi/v/gym-invmgmt.svg)](https://pypi.org/project/gym-invmgmt/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-%E2%89%A50.26-orange.svg)](https://gymnasium.farama.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -12,6 +13,7 @@ the companion benchmark repository.
 
 ## Project Links
 
+- PyPI package: [gym-invmgmt](https://pypi.org/project/gym-invmgmt/)
 - Standalone environment package: [r2barati/gym-invmgmt](https://github.com/r2barati/gym-invmgmt)
 - Paper/code repository: [r2barati/gym-invmgmt-paper](https://github.com/r2barati/gym-invmgmt-paper)
 - Trained checkpoint archive: [rezabarati/gym-invmgmt-weights](https://huggingface.co/datasets/rezabarati/gym-invmgmt-weights)
@@ -37,7 +39,13 @@ The environment simulates a configurable supply chain network with realistic log
 pip install gym-invmgmt
 ```
 
-Until the first PyPI release is published, install directly from GitHub:
+To upgrade an existing installation:
+
+```bash
+pip install -U gym-invmgmt
+```
+
+To install the latest development version directly from GitHub:
 
 ```bash
 pip install git+https://github.com/r2barati/gym-invmgmt.git
@@ -66,9 +74,12 @@ gym-invmgmt/
 │   ├── visualization.py       ←   Network plotting
 │   ├── utils.py               ←   Shared helpers (run_episode, compute_kpis)
 │   ├── topologies/             ←   YAML network topology definitions
+│   │   ├── assembly.yaml
 │   │   ├── diamond.yaml
+│   │   ├── distribution_tree.yaml
 │   │   ├── divergent.yaml
-│   │   └── serial.yaml
+│   │   ├── serial.yaml
+│   │   └── w_network.yaml
 │   └── wrappers/               ←   Action rounding, episode logging
 ├── examples/                  ← Runnable example scripts
 │   ├── quickstart.py          ←   Minimal env usage

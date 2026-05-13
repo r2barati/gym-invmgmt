@@ -7,21 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-12
+
 ### Added
 
-- Added PyPI release documentation and a Trusted Publishing GitHub Actions workflow.
+- Published the standalone environment package to PyPI as `gym-invmgmt`.
+- Added PyPI release documentation and Trusted Publishing workflows for PyPI and TestPyPI.
+- Added release-facing tests for README/user feature claims, including Gymnasium registration, demand configuration, external-series adapters, wrappers, metadata writing, RGB rendering, and optional Stable-Baselines3 vectorized compatibility.
+- Added `render_mode="rgb_array"` support through `render_rgb_array()`.
 
 ### Changed
 
 - Updated package metadata for PyPI discovery, release builds, and typed-package classification.
-- Load custom topology YAML files as UTF-8 for Windows compatibility.
-
-## [0.2.0] - 2026-05-04
-
-### Changed
-
-- Updated release metadata for the environment-only package.
 - Corrected documented observation dimensions for the built-in divergent and serial environments.
+- Load custom topology YAML files as UTF-8 for Windows compatibility.
 
 ## [0.1.0] - 2026-03-15
 

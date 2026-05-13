@@ -83,13 +83,14 @@ Set in `CoreEnv.__init__()`.
 
 ## State Space
 
-The state at time $t$ is a flat vector concatenating four components:
+The state at time $t$ is a flat vector concatenating five components:
 
-$$s_t = [D_{t-1},\ X_t,\ \text{arrivals}_t,\ F_t]$$
+$$s_t = [D_{t-1},\ U_{t-1},\ X_t,\ \text{arrivals}_t,\ F_t]$$
 
 | Component | Dimension | Source | Description |
 |-----------|-----------|--------|-------------|
 | Demand $D_{t-1}$ | $n_\text{retail}$ | `self.D[t-1, :]` | **Lag-1 realized demand** — the demand that was realized in the previous period. At $t=0$ this is all zeros (no demand realized yet). |
+| Unfulfilled $U_{t-1}$ | $n_\text{retail}$ | `self.U[t-1, :]` | Lag-1 standing backlog / unfulfilled demand. In lost-sales mode this records prior-period unmet demand rather than carrying it forward. |
 | Inventory $X_t$ | $n_\text{main}$ | `self.X[t, main_nodes]` | On-hand inventory at factories + distributors (post-delivery) |
 | Arrivals | $\sum_e L_e$ | `self.R[t-L+k, e]` | **Arrival-indexed pipeline** from the $R$ matrix: for each reorder edge with lead time $L$, an $L$-element vector where `arrivals[0]` = units arriving this step (oldest order), `arrivals[k]` = units arriving in $k$ steps |
 | Features $F_t$ | 2 | `demand_engine.get_observation(t)` | `[t / T, sentiment]` — normalized time and goodwill |
@@ -97,14 +98,15 @@ $$s_t = [D_{t-1},\ X_t,\ \text{arrivals}_t,\ F_t]$$
 > **Key design decisions:**
 > - **Lag-1 demand** prevents information leakage: the agent sees demand that *already happened*, not demand that will be sampled during the current step.
 > - **R-based arrivals** use the filled order matrix (not `action_log`) to build the pipeline. This ensures the agent sees what is *actually in transit*, not what it *wished for*.
-> - At reset ($t=0$), the demand component is all zeros because no demand has been realized yet.
+> - At reset ($t=0$), the demand and unfulfilled-demand components are all zeros because no customer demand has been realized yet.
 
 **Total observation dimension:**
 
-$$|\mathcal{S}| = n_\text{retail} + n_\text{main} + \sum_e L_e + 2$$
+$$|\mathcal{S}| = 2n_\text{retail} + n_\text{main} + \sum_e L_e + 2$$
 
-**Default network:** $|\mathcal{S}| = 1 + 7 + 60 + 2 = 70$, where:
+**Default network:** $|\mathcal{S}| = 2(1) + 7 + 60 + 2 = 71$, where:
 - 1 retail edge (node 1 → market 0)
+- 1 unfulfilled-demand/backlog feature for the retail edge
 - 7 main nodes (3 distributors + 3 factories + 1 retailer)
 - 60 pipeline slots (sum of all lead times: 5+3+8+10+9+11+12+0+1+2+0 = 61, minus zero-lead-time edges = 60)
 - 2 features (time, goodwill)
