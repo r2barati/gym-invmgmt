@@ -29,7 +29,7 @@ the companion benchmark repository.
 
 The environment simulates a configurable supply chain network with realistic logistics — production capacities, pipeline lead times, holding costs, backlog penalties — driven by a composable demand engine supporting non-stationary patterns and endogenous customer goodwill dynamics.
 
-![Multi-Echelon Network Topology](assets/network_topology.png)
+![Multi-Echelon Network Topology](https://raw.githubusercontent.com/r2barati/gym-invmgmt/main/assets/network_topology.png)
 
 ---
 
@@ -132,11 +132,11 @@ Both environments default to 30-period episodes with stationary Poisson demand (
 
 The multi-echelon network features factories with production capacities, distributors as intermediary holding points, and retailers facing stochastic customer demand:
 
-![Detailed Network Parameters](assets/network_detailed.png)
+![Detailed Network Parameters](https://raw.githubusercontent.com/r2barati/gym-invmgmt/main/assets/network_detailed.png)
 
 The serial chain provides a simpler linear topology for focused experiments:
 
-![Serial Chain Topology](assets/serial_topology.png)
+![Serial Chain Topology](https://raw.githubusercontent.com/r2barati/gym-invmgmt/main/assets/serial_topology.png)
 
 ### Observation Space
 `Box(-inf, inf, shape=(obs_dim,))` — a flat vector containing:
