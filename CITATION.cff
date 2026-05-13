@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite this software release."
+message: "If you use this environment package, please cite the accompanying paper and software release."
 title: "gym-invmgmt: An Open Benchmarking Framework for Inventory Management Methods"
 type: software
 authors:
@@ -10,6 +10,10 @@ repository-code: "https://github.com/r2barati/gym-invmgmt"
 license: MIT
 version: "0.2.0"
 date-released: "2026-05-05"
+identifiers:
+  - type: url
+    value: "https://arxiv.org/abs/2605.11355"
+    description: "arXiv preprint"
 keywords:
   - reinforcement learning
   - operations research
@@ -18,3 +22,21 @@ keywords:
   - supply chain
   - multi-echelon
   - digital twin
+preferred-citation:
+  type: article
+  title: "gym-invmgmt: An Open Benchmarking Framework for Inventory Management Methods"
+  authors:
+    - family-names: "Barati"
+      given-names: "Reza"
+      email: "r2barati@torontomu.ca"
+    - family-names: "Hu"
+      given-names: "Qinmin Vivian"
+  year: 2026
+  journal: "arXiv preprint"
+  identifiers:
+    - type: other
+      value: "arXiv:2605.11355"
+      description: "arXiv identifier"
+    - type: url
+      value: "https://arxiv.org/abs/2605.11355"
+      description: "arXiv abstract page"

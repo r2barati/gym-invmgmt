@@ -360,18 +360,26 @@ For detailed mathematical formulations and parameter references:
 
 ## Citing
 
-If you use this environment in your research, please cite:
+If you use this environment in your research, please cite the accompanying
+paper:
 
 ```bibtex
-@misc{gym-invmgmt,
-  author = {Barati, Reza},
+@misc{barati2026gyminvmgmt,
   title = {gym-invmgmt: An Open Benchmarking Framework for Inventory Management Methods},
+  author = {Barati, Reza and Hu, Qinmin Vivian},
   year = {2026},
-  howpublished = {\url{https://github.com/r2barati/gym-invmgmt}},
+  eprint = {2605.11355},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG},
+  url = {https://arxiv.org/abs/2605.11355}
 }
 ```
 
-This environment builds on foundational work by [ORL Benchmarks](https://github.com/awslabs/or-rl-benchmarks) (Balaji et al., 2019), [OR-Gym](https://github.com/hubbs5/or-gym) (Hubbs et al., 2020), and [Perez et al. (2021)](https://www.mdpi.com/2227-9717/9/1/102). See [`CITATION.cff`](CITATION.cff) for full references.
+You can also cite the package software release through
+[`CITATION.cff`](CITATION.cff), which points GitHub's citation widget to the
+paper as the preferred citation.
+
+This environment builds on foundational work by [ORL Benchmarks](https://github.com/awslabs/or-rl-benchmarks) (Balaji et al., 2019), [OR-Gym](https://github.com/hubbs5/or-gym) (Hubbs et al., 2020), and [Perez et al. (2021)](https://www.mdpi.com/2227-9717/9/1/102).
 
 ---
 
