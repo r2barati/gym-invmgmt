@@ -8,8 +8,8 @@ authors:
     email: "r2barati@torontomu.ca"
 repository-code: "https://github.com/r2barati/gym-invmgmt"
 license: MIT
-version: "0.2.0"
-date-released: "2026-05-05"
+version: "0.2.1"
+date-released: "2026-05-12"
 identifiers:
   - type: url
     value: "https://arxiv.org/abs/2605.11355"
