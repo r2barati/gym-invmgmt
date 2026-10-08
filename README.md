@@ -4,6 +4,7 @@
 [![PyPI](https://img.shields.io/pypi/v/gym-invmgmt.svg)](https://pypi.org/project/gym-invmgmt/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-%E2%89%A50.26-orange.svg)](https://gymnasium.farama.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/r2barati/gym-invmgmt/blob/main/notebooks/01_get_started.ipynb)
 
 A **Gymnasium-compatible multi-echelon inventory management environment** for reinforcement learning and operations research.
 
@@ -104,6 +105,8 @@ gym-invmgmt/
 │   ├── train_ppo.py           ←   PPO training with SB3
 │   ├── benchmark_agents.py    ←   Multi-agent benchmark across scenarios
 │   └── generate_videos.py     ←   Dashboard video generator
+├── notebooks/                 ← Colab-ready tutorials
+│   └── 01_get_started.ipynb   ←   Run the env, write a policy, benchmark it
 ├── tests/                     ← Test suite
 ├── docs/                      ← Documentation
 │   ├── guides/                ←   Tutorials and walkthroughs
@@ -128,6 +131,13 @@ while not done:
     obs, reward, terminated, truncated, info = env.step(action)
     done = terminated or truncated
 ```
+
+For a guided tour, open
+[`notebooks/01_get_started.ipynb`](notebooks/01_get_started.ipynb) in
+[Colab](https://colab.research.google.com/github/r2barati/gym-invmgmt/blob/main/notebooks/01_get_started.ipynb).
+In about five minutes on a CPU it runs the environment, compares a base-stock
+policy with random ordering, and benchmarks your own policy against the
+published baselines from the paper.
 
 ---
 
