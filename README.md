@@ -6,6 +6,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/r2barati/gym-invmgmt/blob/main/notebooks/01_get_started.ipynb)
 
+**Project website:** [r2barati.github.io/gym-invmgmt-paper](https://r2barati.github.io/gym-invmgmt-paper/) (interactive leaderboard, episode replays, robustness analysis and documentation)
+
 A **Gymnasium-compatible multi-echelon inventory management environment** for reinforcement learning and operations research.
 
 This repository contains the standalone environment package only. The paper
@@ -29,6 +31,7 @@ import name.
 
 ## Project Links
 
+- Project website: [r2barati.github.io/gym-invmgmt-paper](https://r2barati.github.io/gym-invmgmt-paper/)
 - PyPI package: [gym-invmgmt](https://pypi.org/project/gym-invmgmt/)
 - arXiv paper: [arXiv:2605.11355](https://arxiv.org/abs/2605.11355)
 - Standalone environment package: [r2barati/gym-invmgmt](https://github.com/r2barati/gym-invmgmt)
