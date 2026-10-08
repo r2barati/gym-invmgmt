@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `notebooks/01_get_started.ipynb`: Colab-ready tutorial that installs `gym-invmgmt==0.2.1` from PyPI, compares a base-stock policy with random ordering, and benchmarks a user-written policy against the paper's published baselines with `evaluate_custom.py` from gym-invmgmt-paper.
+
 ### Fixed
 
 - `examples/benchmark_agents.py`: `ObsParser` now accounts for the backlog block in the observation vector. It previously read backlog as the first node's inventory and shifted every later field, so the `·obs` policies diverged from their oracle-state counterparts; they now match exactly. The `·obs` policies also read backlog from the observation instead of `env.U`.
