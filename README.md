@@ -8,8 +8,23 @@
 A **Gymnasium-compatible multi-echelon inventory management environment** for reinforcement learning and operations research.
 
 This repository contains the standalone environment package only. The paper
-benchmark agents, trained weights, result tables, and manuscript source live in
-the companion benchmark repository.
+benchmark agents, trained weights, and result tables live in the companion
+benchmark repository.
+
+### Which repository do I need?
+
+| I want to... | Use |
+|---|---|
+| Use the environment in my own RL/OR project | This package: `pip install gym-invmgmt` |
+| Compare my algorithm against the published benchmark results | [gym-invmgmt-paper](https://github.com/r2barati/gym-invmgmt-paper) |
+| Reproduce the paper's tables from scratch | [gym-invmgmt-paper](https://github.com/r2barati/gym-invmgmt-paper) (needs checkpoints and solver dependencies) |
+
+The paper repository bundles its own copy of the `gym_invmgmt` module. Its
+environment dynamics are identical to `gym-invmgmt` 0.2.x on PyPI (the
+differences are formatting and Python 3.8 compatibility only), so results
+obtained with this package are comparable to the published ones. Install the
+two in separate virtual environments, because both provide the `gym_invmgmt`
+import name.
 
 ## Project Links
 
