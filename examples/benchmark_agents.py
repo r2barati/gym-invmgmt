@@ -28,8 +28,8 @@ from gym_invmgmt.utils import compute_kpis
 class ObsParser:
     """Parse the flat observation vector into named components.
 
-    The observation layout is:
-        [demand(n_retail) | inventory(n_main) | pipeline(sum_L) | features(2)]
+    The observation layout (see CoreEnv._update_state) is:
+        [demand(n_retail) | backlog(n_retail) | inventory(n_main) | pipeline(sum_L) | features(2)]
 
     This class pre-computes index slices at init time so parsing is O(1)
     per step.
@@ -40,10 +40,15 @@ class ObsParser:
         self.n_retail = len(net.retail_links)
         self.n_main = len(net.main_nodes)
         self.n_extra = env.extra_features_dim
+        self.retail_map = net.retail_map
+        self.successors = {n: list(env.graph.successors(n)) for n in net.main_nodes}
 
         # Pre-compute slices
         i = 0
         self.demand_slice = slice(i, i + self.n_retail)
+        i += self.n_retail
+
+        self.backlog_slice = slice(i, i + self.n_retail)
         i += self.n_retail
 
         self.inv_slice = slice(i, i + self.n_main)
@@ -75,6 +80,7 @@ class ObsParser:
         """Return (demand, inventory, pipeline_by_node, features)."""
         return {
             'demand': obs[self.demand_slice],
+            'backlog': obs[self.backlog_slice],
             'inventory': obs[self.inv_slice],
             'obs': obs,
         }
@@ -93,6 +99,12 @@ class ObsParser:
         for sl, L in slices:
             total += np.sum(obs[sl])
         return total
+
+    def get_backlog(self, obs, node):
+        """Get last period's unmet retail demand at a node (0 for non-retail nodes)."""
+        backlog = obs[self.backlog_slice]
+        return sum(backlog[self.retail_map[(node, k)]]
+                   for k in self.successors.get(node, []) if (node, k) in self.retail_map)
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -261,14 +273,7 @@ class ObsNewsvendorPolicy:
             target = poisson.ppf(info['cr'], mu_L) if mu_L > 0 else 0
             on_hand = self.parser.get_on_hand(obs, node)
             in_transit = self.parser.get_in_transit(obs, node)
-            # NOTE: Backlog (env.U) is not part of the observation vector.
-            # For strict obs-parity, we read it from env.U directly (same
-            # information-budget caveat as get_current_mu — see class docstring).
-            backlog = 0
-            if node in self.env.network.retail and period > 0:
-                for k in self.env.graph.successors(node):
-                    if (node, k) in self.env.network.retail_map:
-                        backlog += self.env.U[period - 1, self.env.network.retail_map[(node, k)]]
+            backlog = self.parser.get_backlog(obs, node)
             inv_pos = on_hand + in_transit - backlog
             order = max(0, target - inv_pos)
             n_sup = len(info['inc'])
@@ -315,14 +320,7 @@ class ObsSSPolicy:
             S = s + eoq
             on_hand = self.parser.get_on_hand(obs, node)
             in_transit = self.parser.get_in_transit(obs, node)
-            # NOTE: Backlog (env.U) is not part of the observation vector.
-            # For strict obs-parity, we read it from env.U directly (same
-            # information-budget caveat as get_current_mu — see class docstring).
-            backlog = 0
-            if node in self.env.network.retail and period > 0:
-                for k in self.env.graph.successors(node):
-                    if (node, k) in self.env.network.retail_map:
-                        backlog += self.env.U[period - 1, self.env.network.retail_map[(node, k)]]
+            backlog = self.parser.get_backlog(obs, node)
             inv_pos = on_hand + in_transit - backlog
             order = max(0, S - inv_pos) if inv_pos < s else 0
             n_sup = len(info['inc'])
