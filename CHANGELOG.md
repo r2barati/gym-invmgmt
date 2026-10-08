@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `examples/benchmark_agents.py`: `ObsParser` now accounts for the backlog block in the observation vector. It previously read backlog as the first node's inventory and shifted every later field, so the `·obs` policies diverged from their oracle-state counterparts; they now match exactly. The `·obs` policies also read backlog from the observation instead of `env.U`.
+- Corrected `CITATION.cff` software version and release date to match the 0.2.1 release.
+- Added a "Which repository do I need?" guide to the README and documented that the paper repository's bundled environment matches 0.2.x.
+
 ## [0.2.1] - 2026-05-12
 
 ### Fixed
