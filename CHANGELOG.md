@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Corrected `CITATION.cff` software version and release date to match the 0.2.1 release.
+- Added a "Which repository do I need?" guide to the README and documented that the paper repository's bundled environment matches 0.2.x.
+
 ## [0.2.1] - 2026-05-12
 
 ### Fixed
