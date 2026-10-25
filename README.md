@@ -1,12 +1,20 @@
-# gym-invmgmt: An Open Benchmarking Framework for Inventory Management Methods
+<div align="center">
+
+# gym-invmgmt
+### A Gymnasium Environment for Multi-Echelon Inventory Management
+
+**Maintained by [Reza Barati](https://github.com/r2barati)**  
+Toronto Metropolitan University
+
+[PyPI](https://pypi.org/project/gym-invmgmt/) · [Project page](https://r2barati.github.io/gym-invmgmt-paper/) · [Paper](https://arxiv.org/abs/2605.11355) · [Benchmarks](https://github.com/r2barati/gym-invmgmt-paper) · [Try in Colab](https://colab.research.google.com/github/r2barati/gym-invmgmt/blob/main/notebooks/01_get_started.ipynb)
+
+**Configurable supply networks · Non-stationary demand · RL and OR ready**
+
+</div>
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![PyPI](https://img.shields.io/pypi/v/gym-invmgmt.svg)](https://pypi.org/project/gym-invmgmt/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-%E2%89%A50.26-orange.svg)](https://gymnasium.farama.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/r2barati/gym-invmgmt/blob/main/notebooks/01_get_started.ipynb)
-
-**Project website:** [r2barati.github.io/gym-invmgmt-paper](https://r2barati.github.io/gym-invmgmt-paper/) (interactive leaderboard, episode replays, robustness analysis and documentation)
 
 A **Gymnasium-compatible multi-echelon inventory management environment** for reinforcement learning and operations research.
 
@@ -29,14 +37,7 @@ obtained with this package are comparable to the published ones. Install the
 two in separate virtual environments, because both provide the `gym_invmgmt`
 import name.
 
-## Project Links
-
-- Project website: [r2barati.github.io/gym-invmgmt-paper](https://r2barati.github.io/gym-invmgmt-paper/)
-- PyPI package: [gym-invmgmt](https://pypi.org/project/gym-invmgmt/)
-- arXiv paper: [arXiv:2605.11355](https://arxiv.org/abs/2605.11355)
-- Standalone environment package: [r2barati/gym-invmgmt](https://github.com/r2barati/gym-invmgmt)
-- Paper/code repository: [r2barati/gym-invmgmt-paper](https://github.com/r2barati/gym-invmgmt-paper)
-- Trained checkpoint archive: [rezabarati/gym-invmgmt-weights](https://huggingface.co/datasets/rezabarati/gym-invmgmt-weights)
+**Additional resource:** [Pre-trained checkpoint archive](https://huggingface.co/datasets/rezabarati/gym-invmgmt-weights).
 
 **Tested with:**
 
