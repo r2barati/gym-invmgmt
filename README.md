@@ -6,7 +6,7 @@
 **Maintained by [Reza Barati](https://github.com/r2barati)**  
 Toronto Metropolitan University
 
-[PyPI](https://pypi.org/project/gym-invmgmt/) · [Project page](https://r2barati.github.io/gym-invmgmt-paper/) · [Paper](https://arxiv.org/abs/2605.11355) · [Benchmarks](https://github.com/r2barati/gym-invmgmt-paper) · [Try in Colab](https://colab.research.google.com/github/r2barati/gym-invmgmt/blob/main/notebooks/01_get_started.ipynb)
+[PyPI](https://pypi.org/project/gym-invmgmt/) · [Project page](https://r2barati.github.io/gym-invmgmt-paper/) · [Paper](https://arxiv.org/abs/2605.11355) · [Slides](docs/talks/gym-invmgmt-tmu-cs-seminar-2026.pdf) · [Benchmarks](https://github.com/r2barati/gym-invmgmt-paper) · [Try in Colab](https://colab.research.google.com/github/r2barati/gym-invmgmt/blob/main/notebooks/01_get_started.ipynb)
 
 **Configurable supply networks · Non-stationary demand · RL and OR ready**
 
