@@ -354,6 +354,7 @@ For detailed mathematical formulations and parameter references:
 - **[External Datasets](docs/reference/external_datasets.md)** — Using real-world demand data (M5, Favorita, Rossmann) with recommended datasets and examples
 - **[Network Topologies](docs/reference/network_topologies.md)** — Complete node/edge parameter tables, both built-in presets and YAML custom topologies
 - **[Comparison with Prior Work](docs/comparison_with_prior_work.md)** — How this project relates to OR-Gym and OR-RL-Benchmarks
+- **[Talk Slides](docs/talks/gym-invmgmt-tmu-cs-seminar-2026.pdf)** — TMU Computer Science Weekly Seminar (2026): the benchmark, its scenario matrix and the main results
 
 ---
 
